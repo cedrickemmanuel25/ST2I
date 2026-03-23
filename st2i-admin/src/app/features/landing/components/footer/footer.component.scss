@@ -1,0 +1,11 @@
+:host { display: block; }
+$border: rgba(255,255,255,.08); $muted: #8892C8;
+.lp-footer {
+  background: #070C18; border-top: 1px solid $border;
+  padding: 40px 24px; display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center;
+}
+.footer-logo { display: flex; align-items: center; gap: 10px; }
+.footer-logo-img { width: 30px; height: 30px; object-fit: contain; border-radius: 7px; }
+.footer-name { color: white; font-weight: 800; font-size: 15px; }
+.footer-sub  { font-size: 13.5px; color: $muted; }
+.footer-copy { font-size: 12.5px; color: rgba(255,255,255,.3); }

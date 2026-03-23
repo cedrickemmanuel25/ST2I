@@ -1,0 +1,61 @@
+<section class="contact-section" id="contact">
+  <div class="contact-inner">
+    <div class="contact-header">
+      <div class="section-eyebrow">Contact</div>
+      <h2>Demandez une démo</h2>
+      <p>Remplissez le formulaire et notre équipe vous contactera sous 24h.</p>
+    </div>
+
+    <!-- SUCCESS STATE -->
+    <div class="state-box success" *ngIf="isSuccess" @fadeInUp>
+      <div class="state-icon">✅</div>
+      <h3>Demande envoyée !</h3>
+      <p>Nous vous contacterons sous 24h. Merci pour votre intérêt.</p>
+    </div>
+
+    <!-- ERROR STATE -->
+    <div class="state-box error" *ngIf="isError" @fadeInUp>
+      <div class="state-icon">❌</div>
+      <h3>Une erreur est survenue</h3>
+      <p>{{ errorMessage }}</p>
+      <button class="btn-retry" (click)="retry()">Réessayer</button>
+    </div>
+
+    <!-- FORM -->
+    <form class="contact-form" [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="!isSuccess && !isError">
+      <div class="form-row">
+        <div class="form-field">
+          <label>Nom complet *</label>
+          <input type="text" formControlName="nom" placeholder="Jean Dupont">
+          <span class="err" *ngIf="fieldError('nom','required')">Le nom est requis</span>
+          <span class="err" *ngIf="fieldError('nom','minlength')">Minimum 2 caractères</span>
+        </div>
+        <div class="form-field">
+          <label>Email professionnel *</label>
+          <input type="email" formControlName="email" placeholder="jean@entreprise.com">
+          <span class="err" *ngIf="fieldError('email','required')">L'email est requis</span>
+          <span class="err" *ngIf="fieldError('email','email')">Format d'email invalide</span>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-field">
+          <label>Entreprise *</label>
+          <input type="text" formControlName="entreprise" placeholder="Nom de votre entreprise">
+          <span class="err" *ngIf="fieldError('entreprise','required')">L'entreprise est requise</span>
+        </div>
+        <div class="form-field">
+          <label>Taille de l'équipe *</label>
+          <select formControlName="taille">
+            <option value="">Sélectionnez...</option>
+            <option *ngFor="let opt of companyOptions" [value]="opt">{{ opt }} personnes</option>
+          </select>
+          <span class="err" *ngIf="fieldError('taille','required')">Veuillez sélectionner la taille</span>
+        </div>
+      </div>
+      <button class="btn-submit" type="submit" [disabled]="isLoading">
+        <span *ngIf="!isLoading">Envoyer ma demande →</span>
+        <span *ngIf="isLoading" class="loading-dots">Envoi en cours<span>.</span><span>.</span><span>.</span></span>
+      </button>
+    </form>
+  </div>
+</section>

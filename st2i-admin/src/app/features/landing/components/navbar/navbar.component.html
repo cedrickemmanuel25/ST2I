@@ -1,0 +1,20 @@
+<nav class="lp-nav" [class.scrolled]="scrolled()">
+  <a class="nav-logo" href="#">
+    <img src="assets/st2i_logo.png" alt="ST2I" class="nav-logo-img">
+    <span class="nav-logo-text">ST2I</span>
+  </a>
+
+  <div class="nav-menu" [class.open]="mobileOpen()">
+    <a (click)="scrollTo('features')">Fonctionnalités</a>
+    <a (click)="scrollTo('how-it-works')">Fonctionnement</a>
+    <a (click)="scrollTo('benefits')">Avantages</a>
+    <a (click)="scrollTo('contact')">Contact</a>
+  </div>
+
+  <div class="nav-actions">
+    <a routerLink="/auth/login" class="btn-connect">Se connecter →</a>
+    <button class="nav-burger" (click)="toggleMobile()" [class.active]="mobileOpen()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>

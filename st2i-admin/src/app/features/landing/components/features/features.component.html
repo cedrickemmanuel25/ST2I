@@ -1,0 +1,14 @@
+<section class="features-section" id="features">
+  <div class="section-header">
+    <div class="section-eyebrow">Fonctionnalités</div>
+    <h2 class="section-title">Conçu pour la performance</h2>
+    <p class="section-desc">Chaque fonctionnalité est pensée pour simplifier votre quotidien et donner de la visibilité à vos équipes.</p>
+  </div>
+  <div class="features-grid" [@staggerChildren]="visible ? features.length : 0">
+    <div class="feat-card" *ngFor="let f of features" [class]="'feat-card ' + f.glowClass">
+      <div class="feat-icon" [class]="f.colorClass">{{ f.icon }}</div>
+      <h3>{{ f.title }}</h3>
+      <p>{{ f.description }}</p>
+    </div>
+  </div>
+</section>
