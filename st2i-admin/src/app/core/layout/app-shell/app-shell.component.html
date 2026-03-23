@@ -5,7 +5,7 @@
       [opened]="(isHandset$ | async) === false">
     
     <div class="logo-container">
-      <mat-icon class="logo-icon">qr_code_scanner</mat-icon>
+      <img src="assets/st2i_logo.png" alt="ST2I Logo" class="sidebar-logo">
       <span class="logo-text">ST2I ADMIN</span>
     </div>
 
@@ -77,7 +77,7 @@
           <span>Paramètres</span>
         </button>
         <mat-divider></mat-divider>
-        <button mat-menu-item routerLink="/auth/login">
+        <button mat-menu-item (click)="logout()">
           <mat-icon>logout</mat-icon>
           <span>Déconnexion</span>
         </button>

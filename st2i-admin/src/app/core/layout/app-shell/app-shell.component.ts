@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { map, shareReplay } from 'rxjs/operators';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-app-shell',
@@ -28,6 +29,7 @@ import { map, shareReplay } from 'rxjs/operators';
 })
 export class AppShellComponent {
   private breakpointObserver = inject(BreakpointObserver);
+  private authService = inject(AuthService);
 
   isHandset$ = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
@@ -40,6 +42,10 @@ export class AppShellComponent {
       map(result => result.matches),
       shareReplay()
     );
+
+  logout(): void {
+    this.authService.logout();
+  }
 
   getRouteAnimationData(outlet: RouterOutlet) {
     return outlet && outlet.activatedRouteData && outlet.activatedRouteData['animation'];

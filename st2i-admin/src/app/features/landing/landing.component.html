@@ -1,0 +1,160 @@
+<!-- ═══ NAVBAR ═══ -->
+<nav class="lp-nav" [class.scrolled]="scrolled">
+  <a class="nav-logo" href="#">
+    <img src="assets/st2i_logo.png" alt="ST2I" class="nav-logo-img">
+    <span class="nav-logo-text">ST2I</span>
+  </a>
+  <div class="nav-menu">
+    <a href="#features">Fonctionnalités</a>
+    <a href="#preview">Aperçu</a>
+    <a href="#contact">À propos</a>
+  </div>
+  <div class="nav-actions">
+    <a routerLink="/auth/login" class="btn-connect">
+      Se connecter →
+    </a>
+  </div>
+</nav>
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-content">
+
+    <div class="hero-eyebrow">
+      <span class="eyebrow-dot"></span>
+      Nouvelle génération · Disponible maintenant
+    </div>
+
+    <h1>La gestion des présences<br/><em>réinventée</em></h1>
+
+    <p class="hero-description">
+      ST2I unifie le scan QR sécurisé, le suivi en temps réel et les analyses avancées
+      dans une seule plateforme conçue pour les équipes modernes.
+    </p>
+
+    <div class="hero-actions">
+      <a routerLink="/auth/login" class="btn-hero-main">
+        <svg viewBox="0 0 24 24"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+        Accéder au tableau de bord
+      </a>
+      <a href="#preview" class="btn-hero-outline">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+        Voir la démo
+      </a>
+    </div>
+
+    <div class="hero-trust">
+      <div class="trust-item"><span class="trust-pill">🔐 JWT sécurisé</span></div>
+      <div class="trust-item"><span class="trust-pill">📡 Temps réel</span></div>
+      <div class="trust-item"><span class="trust-pill">📱 iOS & Android</span></div>
+      <div class="trust-item"><span class="trust-pill">🛡️ QR dynamique</span></div>
+    </div>
+  </div>
+</section>
+
+
+
+<!-- ═══ STATS ═══ -->
+<div class="stats-row">
+  <div class="stat-item">
+    <div class="stat-number">3+</div>
+    <div class="stat-label">Modules intégrés</div>
+  </div>
+  <div class="stat-sep"></div>
+  <div class="stat-item">
+    <div class="stat-number">100%</div>
+    <div class="stat-label">API RESTful</div>
+  </div>
+  <div class="stat-sep"></div>
+  <div class="stat-item">
+    <div class="stat-number">JWT</div>
+    <div class="stat-label">Sécurisé</div>
+  </div>
+  <div class="stat-sep"></div>
+  <div class="stat-item">
+    <div class="stat-number">60s</div>
+    <div class="stat-label">Rafraîchissement auto</div>
+  </div>
+</div>
+
+<!-- ═══ FEATURES ═══ -->
+<section class="features-section" id="features">
+  <div class="section-header">
+    <div class="section-eyebrow">Fonctionnalités</div>
+    <h2 class="section-title">Conçu pour la performance</h2>
+    <p class="section-desc">Chaque fonctionnalité est pensée pour simplifier votre quotidien et donner de la visibilité à vos équipes.</p>
+  </div>
+  <div class="features-grid">
+
+    <div class="feat-card fc-blue">
+      <div class="feat-icon fi-blue">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><circle cx="17.5" cy="17.5" r="2.5"/></svg>
+      </div>
+      <h3>Scan QR Dynamique</h3>
+      <p>QR Code unique par utilisateur avec rotation automatique quotidienne pour une sécurité maximale. Impossible à copier ou partager.</p>
+    </div>
+
+    <div class="feat-card fc-indigo">
+      <div class="feat-icon fi-indigo">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      </div>
+      <h3>Dashboard Temps Réel</h3>
+      <p>KPIs critiques, courbes Chart.js et flux d'alertes en direct. L'interface se met à jour automatiquement toutes les 60 secondes.</p>
+    </div>
+
+    <div class="feat-card fc-violet">
+      <div class="feat-icon fi-violet">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <h3>Gestion des Équipes</h3>
+      <p>CRUD complet des utilisateurs, attribution de rôles (Admin / Employé / Étudiant), gestion des statuts et génération de QR automatique.</p>
+    </div>
+
+    <div class="feat-card fc-cyan">
+      <div class="feat-icon fi-cyan">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <h3>Horaires Intelligents</h3>
+      <p>Définissez des plages horaires avec exceptions. Le système calcule automatiquement les retards et déclenche les alertes correspondantes.</p>
+    </div>
+
+    <div class="feat-card fc-green">
+      <div class="feat-icon fi-green">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      </div>
+      <h3>Rapports & Exports</h3>
+      <p>Générez des rapports mensuels ou personnalisés sur demande. Exportez vos données en PDF ou Excel avec filtres avancés.</p>
+    </div>
+
+    <div class="feat-card fc-amber">
+      <div class="feat-icon fi-amber">
+        <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      </div>
+      <h3>Alertes & Notifications</h3>
+      <p>Notifications email automatiques configurées via APScheduler. Les gestionnaires sont informés en temps réel de chaque anomalie détectée.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ CTA ═══ -->
+<section class="cta-section" id="contact">
+  <h2>Prêt à optimiser<br/>vos présences ?</h2>
+  <p>Accédez dès maintenant à votre espace d'administration et prenez le contrôle de vos équipes.</p>
+  <div class="cta-btns">
+    <a routerLink="/auth/login" class="btn-hero-main">
+      <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:none;stroke:white;stroke-width:2.2;stroke-linecap:round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+      Se connecter à l'espace Admin
+    </a>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="footer-logo">
+    <img src="assets/st2i_logo.png" alt="ST2I" class="footer-logo-img">
+    <span class="footer-name">ST2I</span>
+  </div>
+  <p>Système de Gestion de Pointage et de Présences</p>
+  <p>© 2026 ST2I — Tous droits réservés</p>
+</footer>
