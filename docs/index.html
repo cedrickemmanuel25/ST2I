@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ST2I – Système de Pointage & Présences</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <style>
+    :root {
+      --navy: #1E3A5F;
+      --blue: #2E86C1;
+      --light-blue: #AED6F1;
+      --accent: #27AE60;
+      --bg: #F0F4F8;
+      --white: #ffffff;
+      --card-shadow: 0 8px 32px rgba(30,58,95,0.12);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--navy);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      background: rgba(30,58,95,0.95);
+      backdrop-filter: blur(12px);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 48px;
+    }
+    .nav-brand { display: flex; align-items: center; gap: 10px; }
+    .nav-logo {
+      width: 36px; height: 36px; border-radius: 8px;
+      background: linear-gradient(135deg, #2E86C1, #AED6F1);
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-weight: 800; font-size: 18px;
+    }
+    .nav-brand span { color: white; font-weight: 700; font-size: 18px; }
+    .nav-links { display: flex; gap: 32px; }
+    .nav-links a { color: rgba(255,255,255,.75); text-decoration: none; font-size: 14px; font-weight: 500; transition: color .2s; }
+    .nav-links a:hover { color: white; }
+    .nav-cta {
+      background: var(--blue); color: white; border: none; border-radius: 8px;
+      padding: 10px 24px; font-weight: 600; cursor: pointer; font-size: 14px;
+      text-decoration: none; transition: background .2s;
+    }
+    .nav-cta:hover { background: #1a6fa8; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0a1932 0%, #1E3A5F 50%, #2E86C1 100%);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 120px 24px 80px;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; width: 600px; height: 600px;
+      border-radius: 50%; border: 1px solid rgba(255,255,255,.06);
+      top: -100px; right: -100px;
+    }
+    .hero::after {
+      content: ''; position: absolute; width: 400px; height: 400px;
+      border-radius: 50%; border: 1px solid rgba(255,255,255,.04);
+      bottom: -50px; left: -50px;
+    }
+    .hero-badge {
+      display: inline-block; background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.2);
+      color: var(--light-blue); padding: 6px 16px; border-radius: 20px;
+      font-size: 13px; font-weight: 500; margin-bottom: 24px;
+      backdrop-filter: blur(4px);
+    }
+    h1 {
+      font-size: clamp(36px, 6vw, 72px); font-weight: 900;
+      color: white; line-height: 1.1; margin-bottom: 24px; max-width: 800px;
+    }
+    h1 span { color: var(--light-blue); }
+    .hero-subtitle {
+      font-size: clamp(16px, 2vw, 20px); color: rgba(255,255,255,.75);
+      max-width: 560px; line-height: 1.6; margin-bottom: 48px;
+    }
+    .hero-cta-row { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+    .btn-primary {
+      background: var(--white); color: var(--navy);
+      border: none; border-radius: 12px; padding: 16px 32px;
+      font-weight: 700; font-size: 16px; cursor: pointer; text-decoration: none;
+      transition: transform .2s, box-shadow .2s;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(0,0,0,.3); }
+    .btn-ghost {
+      background: transparent; color: white;
+      border: 1px solid rgba(255,255,255,.35); border-radius: 12px;
+      padding: 16px 32px; font-weight: 600; font-size: 16px;
+      cursor: pointer; text-decoration: none; transition: all .2s;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,.1); }
+    .hero-stats {
+      display: flex; gap: 48px; margin-top: 72px; flex-wrap: wrap; justify-content: center;
+    }
+    .stat { text-align: center; }
+    .stat-value { font-size: 40px; font-weight: 900; color: var(--light-blue); }
+    .stat-label { font-size: 13px; color: rgba(255,255,255,.6); margin-top: 4px; font-weight: 500; }
+
+    /* ── MOCK DASHBOARD ── */
+    .mockup-section {
+      padding: 100px 24px;
+      background: var(--bg);
+      text-align: center;
+    }
+    .section-tag {
+      display: inline-block; color: var(--blue); font-weight: 600; font-size: 13px;
+      text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px;
+    }
+    .section-title {
+      font-size: clamp(28px, 4vw, 48px); font-weight: 800;
+      color: var(--navy); margin-bottom: 16px;
+    }
+    .section-subtitle { color: #64748b; max-width: 520px; margin: 0 auto 64px; font-size: 17px; line-height: 1.6; }
+
+    .dashboard-mock {
+      max-width: 1100px; margin: 0 auto;
+      background: #1a2540; border-radius: 20px; overflow: hidden;
+      box-shadow: 0 32px 80px rgba(30,58,95,.35);
+    }
+    .mock-bar {
+      background: #0d1829; padding: 12px 20px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .dot { width: 12px; height: 12px; border-radius: 50%; }
+    .dot-red { background: #FF5F57; }
+    .dot-yellow { background: #FFBD2E; }
+    .dot-green { background: #28CA41; }
+    .mock-bar span { color: rgba(255,255,255,.4); font-size: 12px; margin-left: 8px; font-family: monospace; }
+
+    .mock-body { display: flex; gap: 0; min-height: 500px; }
+    .mock-sidebar {
+      width: 200px; min-height: 500px; background: #162037;
+      padding: 20px 0; flex-shrink: 0;
+    }
+    .mock-logo { padding: 0 20px 24px; display: flex; align-items: center; gap: 10px; }
+    .mock-logo-icon {
+      width: 28px; height: 28px; border-radius: 6px;
+      background: linear-gradient(135deg, var(--blue), var(--light-blue));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; color: white;
+    }
+    .mock-logo span { color: white; font-weight: 700; font-size: 13px; }
+    .mock-nav-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 20px; font-size: 12px; color: rgba(255,255,255,.5);
+      cursor: pointer; transition: all .15s;
+    }
+    .mock-nav-item.active { background: var(--blue); color: white; }
+    .mock-nav-item .material-icons { font-size: 18px; }
+
+    .mock-content { flex: 1; padding: 24px; background: #f4f7fa; overflow: hidden; }
+    .mock-header { margin-bottom: 20px; }
+    .mock-title { font-size: 20px; font-weight: 700; color: var(--navy); }
+    .mock-subtitle { font-size: 12px; color: #888; margin-top: 2px; }
+    .kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 16px; }
+    .kpi-card {
+      background: white; border-radius: 10px; padding: 14px;
+      display: flex; align-items: center; justify-content: space-between;
+      box-shadow: 0 2px 8px rgba(0,0,0,.06);
+    }
+    .kpi-info .kpi-label { font-size: 10px; color: #888; font-weight: 500; }
+    .kpi-info .kpi-val { font-size: 22px; font-weight: 800; color: var(--navy); margin: 2px 0; }
+    .kpi-info .kpi-trend { font-size: 10px; color: var(--accent); }
+    .kpi-icon {
+      width: 36px; height: 36px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
+    }
+    .icon-blue { background: #EBF5FB; color: var(--blue); }
+    .icon-red { background: #FDEDEC; color: #E74C3C; }
+    .icon-orange { background: #FEF9E7; color: #F39C12; }
+    .icon-green { background: #EAFAF1; color: var(--accent); }
+
+    .bottom-row { display: grid; grid-template-columns: 1fr 300px; gap: 12px; }
+    .chart-card { background: white; border-radius: 10px; padding: 14px; box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+    .chart-title { font-size: 12px; font-weight: 600; color: var(--navy); margin-bottom: 10px; }
+    .chart-bars { display: flex; align-items: flex-end; gap: 6px; height: 80px; }
+    .bar { flex: 1; border-radius: 4px 4px 0 0; min-width: 10px; }
+    .bar-blue { background: linear-gradient(to top, var(--blue), var(--light-blue)); }
+    .bar-navy { background: linear-gradient(to top, var(--navy), #2E86C1); }
+
+    .alerts-card { background: white; border-radius: 10px; padding: 14px; box-shadow: 0 2px 8px rgba(0,0,0,.06); }
+    .alert-item { display: flex; gap: 8px; align-items: flex-start; padding: 8px 0; border-bottom: 1px solid #f0f4f8; }
+    .alert-dot { width: 8px; height: 8px; border-radius: 50%; margin-top: 4px; flex-shrink: 0; }
+    .alert-dot-orange { background: #F39C12; }
+    .alert-dot-red { background: #E74C3C; }
+    .alert-text .name { font-size: 10px; font-weight: 600; color: var(--navy); }
+    .alert-text .msg { font-size: 9px; color: #888; }
+
+    /* ── FEATURES ── */
+    .features-section { padding: 100px 24px; background: white; }
+    .features-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px; max-width: 1100px; margin: 0 auto;
+    }
+    .feature-card {
+      background: var(--bg); border-radius: 16px; padding: 32px;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .feature-card:hover { transform: translateY(-4px); box-shadow: var(--card-shadow); }
+    .feature-icon {
+      width: 52px; height: 52px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 24px; margin-bottom: 20px;
+    }
+    .feature-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; color: var(--navy); }
+    .feature-card p { color: #64748b; font-size: 14px; line-height: 1.6; }
+
+    /* ── TECH STACK ── */
+    .tech-section { padding: 80px 24px; background: var(--bg); }
+    .tech-grid {
+      display: flex; flex-wrap: wrap; gap: 16px;
+      max-width: 800px; margin: 0 auto; justify-content: center;
+    }
+    .tech-pill {
+      background: white; border: 1px solid #e2e8f0; border-radius: 50px;
+      padding: 10px 24px; font-size: 14px; font-weight: 600; color: var(--navy);
+      box-shadow: 0 2px 8px rgba(0,0,0,.06); display: flex; align-items: center; gap: 8px;
+    }
+    .tech-pill span { font-size: 18px; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy); color: rgba(255,255,255,.6);
+      text-align: center; padding: 40px 24px; font-size: 14px;
+    }
+    footer a { color: var(--light-blue); text-decoration: none; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    .fade-up { animation: fadeUp .6s ease forwards; }
+    .delay-1 { animation-delay: .1s; opacity: 0; }
+    .delay-2 { animation-delay: .2s; opacity: 0; }
+    .delay-3 { animation-delay: .3s; opacity: 0; }
+    .delay-4 { animation-delay: .4s; opacity: 0; }
+
+    @media (max-width: 768px) {
+      nav { padding: 14px 20px; }
+      .nav-links { display: none; }
+      .kpi-row { grid-template-columns: repeat(2, 1fr); }
+      .bottom-row { grid-template-columns: 1fr; }
+      .mock-sidebar { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <div class="nav-logo">S</div>
+    <span>ST2I Projet</span>
+  </div>
+  <div class="nav-links">
+    <a href="#features">Fonctionnalités</a>
+    <a href="#demo">Démo</a>
+    <a href="#tech">Technologies</a>
+  </div>
+  <a href="https://github.com/cedrickemmanuel25/ST2I" class="nav-cta" target="_blank">GitHub →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge fade-up">🚀 Open Source · Fullstack · Production-Ready</div>
+  <h1 class="fade-up delay-1">Système de <span>Pointage</span> et Gestion des Présences</h1>
+  <p class="hero-subtitle fade-up delay-2">
+    Une plateforme moderne combinant une application mobile Flutter pour le scan QR,
+    un tableau de bord Angular et une API FastAPI robuste.
+  </p>
+  <div class="hero-cta-row fade-up delay-3">
+    <a href="https://github.com/cedrickemmanuel25/ST2I" class="btn-primary" target="_blank">
+      <span class="material-icons" style="font-size:18px">code</span>
+      Voir sur GitHub
+    </a>
+    <a href="#demo" class="btn-ghost">
+      <span class="material-icons" style="font-size:18px">play_circle</span>
+      Voir la démo
+    </a>
+  </div>
+  <div class="hero-stats fade-up delay-4">
+    <div class="stat">
+      <div class="stat-value">3</div>
+      <div class="stat-label">Modules Principaux</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">100%</div>
+      <div class="stat-label">API RESTful</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">JWT</div>
+      <div class="stat-label">Sécurité Avancée</div>
+    </div>
+    <div class="stat">
+      <div class="stat-value">QR</div>
+      <div class="stat-label">Scan Sécurisé</div>
+    </div>
+  </div>
+</section>
+
+<!-- DASHBOARD MOCKUP -->
+<section class="mockup-section" id="demo">
+  <span class="section-tag">Aperçu de l'interface</span>
+  <h2 class="section-title">Tableau de bord Admin</h2>
+  <p class="section-subtitle">Une interface moderne et réactive pour suivre toutes les présences en temps réel.</p>
+
+  <div class="dashboard-mock">
+    <div class="mock-bar">
+      <div class="dot dot-red"></div>
+      <div class="dot dot-yellow"></div>
+      <div class="dot dot-green"></div>
+      <span>localhost:4200/dashboard</span>
+    </div>
+    <div class="mock-body">
+      <div class="mock-sidebar">
+        <div class="mock-logo">
+          <div class="mock-logo-icon"><span class="material-icons" style="font-size:14px">qr_code_scanner</span></div>
+          <span>ST2I ADMIN</span>
+        </div>
+        <div class="mock-nav-item active">
+          <span class="material-icons">dashboard</span> Dashboard
+        </div>
+        <div class="mock-nav-item">
+          <span class="material-icons">people</span> Utilisateurs
+        </div>
+        <div class="mock-nav-item">
+          <span class="material-icons">event_available</span> Présences
+        </div>
+        <div class="mock-nav-item">
+          <span class="material-icons">schedule</span> Horaires
+        </div>
+        <div class="mock-nav-item">
+          <span class="material-icons">bar_chart</span> Statistiques
+        </div>
+        <div class="mock-nav-item">
+          <span class="material-icons">description</span> Rapports
+        </div>
+        <div class="mock-nav-item">
+          <span class="material-icons">settings</span> Paramètres
+        </div>
+      </div>
+      <div class="mock-content">
+        <div class="mock-header">
+          <div class="mock-title">Tableau de bord</div>
+          <div class="mock-subtitle">Dernière mise à jour: 21:30:00</div>
+        </div>
+        <div class="kpi-row">
+          <div class="kpi-card">
+            <div class="kpi-info">
+              <div class="kpi-label">Présents Aujourd'hui</div>
+              <div class="kpi-val">142</div>
+              <div class="kpi-trend">↑ +5.2% vs hier</div>
+            </div>
+            <div class="kpi-icon icon-blue"><span class="material-icons">groups</span></div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-info">
+              <div class="kpi-label">Absents</div>
+              <div class="kpi-val" style="color:#E74C3C">18</div>
+              <div class="kpi-trend" style="color:#E74C3C">Voir détails</div>
+            </div>
+            <div class="kpi-icon icon-red"><span class="material-icons">person_off</span></div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-info">
+              <div class="kpi-label">Retards</div>
+              <div class="kpi-val" style="color:#F39C12">7</div>
+              <div class="kpi-trend" style="color:#F39C12">À traiter</div>
+            </div>
+            <div class="kpi-icon icon-orange"><span class="material-icons">timer_off</span></div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-info">
+              <div class="kpi-label">Taux Mensuel</div>
+              <div class="kpi-val">88%</div>
+              <div class="kpi-trend">Ce mois</div>
+            </div>
+            <div class="kpi-icon icon-green"><span class="material-icons">analytics</span></div>
+          </div>
+        </div>
+        <div class="bottom-row">
+          <div class="chart-card">
+            <div class="chart-title">Courbe de présence (30 jours)</div>
+            <div class="chart-bars">
+              <div class="bar bar-blue" style="height:55%"></div>
+              <div class="bar bar-navy" style="height:70%"></div>
+              <div class="bar bar-blue" style="height:65%"></div>
+              <div class="bar bar-navy" style="height:80%"></div>
+              <div class="bar bar-blue" style="height:72%"></div>
+              <div class="bar bar-navy" style="height:60%"></div>
+              <div class="bar bar-blue" style="height:85%"></div>
+              <div class="bar bar-navy" style="height:90%"></div>
+              <div class="bar bar-blue" style="height:78%"></div>
+              <div class="bar bar-navy" style="height:68%"></div>
+              <div class="bar bar-blue" style="height:95%"></div>
+              <div class="bar bar-navy" style="height:88%"></div>
+            </div>
+          </div>
+          <div class="alerts-card">
+            <div class="chart-title">⚠️ Alertes Récentes</div>
+            <div class="alert-item">
+              <div class="alert-dot alert-dot-orange"></div>
+              <div class="alert-text">
+                <div class="name">Bureau A. – Hors horaires</div>
+                <div class="msg">Scan à 09:47 | Prévu 08:00</div>
+              </div>
+            </div>
+            <div class="alert-item">
+              <div class="alert-dot alert-dot-red"></div>
+              <div class="alert-text">
+                <div class="name">Koné M. – Absent</div>
+                <div class="msg">Aucun scan aujourd'hui</div>
+              </div>
+            </div>
+            <div class="alert-item">
+              <div class="alert-dot alert-dot-orange"></div>
+              <div class="alert-text">
+                <div class="name">Diallo B. – Hors horaires</div>
+                <div class="msg">Scan à 10:15 | Prévu 08:30</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features-section" id="features">
+  <div style="text-align:center; margin-bottom:64px;">
+    <span class="section-tag">Fonctionnalités</span>
+    <h2 class="section-title">Tout ce dont vous avez besoin</h2>
+    <p class="section-subtitle">Trois modules intégrés pour une gestion complète des présences.</p>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon" style="background:#EBF5FB;">📱</div>
+      <h3>Application Mobile Flutter</h3>
+      <p>Scannez votre QR Code personnel pour pointer. Disponible sur iOS et Android. QR sécurisé avec rotation automatique.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:#F0FFF4;">📊</div>
+      <h3>Dashboard Temps Réel</h3>
+      <p>Suivez les KPIs clés, visualisez les courbes de présence et recevez des alertes automatiques sur les anomalies.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:#FFF5E6;">👥</div>
+      <h3>Gestion des Utilisateurs</h3>
+      <p>CRUD complet avec gestion des rôles (Admin, Employé, Étudiant), statuts et QR Code personnel généré automatiquement.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:#FEF9E7;">📅</div>
+      <h3>Gestion des Horaires</h3>
+      <p>Définissez les plages horaires standard et les exceptions. Le système détecte automatiquement les retards et les absences.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:#F5EEF8;">📑</div>
+      <h3>Rapports & Exports</h3>
+      <p>Générez des rapports détaillés et exportez les données en PDF ou Excel pour vos analyses et audits.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon" style="background:#EAFAF1;">🔐</div>
+      <h3>Sécurité JWT & RBAC</h3>
+      <p>Authentification sécurisée par tokens JWT avec gestion des permissions par rôle (Role-Based Access Control).</p>
+    </div>
+  </div>
+</section>
+
+<!-- TECH STACK -->
+<section class="tech-section" id="tech">
+  <div style="text-align:center; margin-bottom:48px;">
+    <span class="section-tag">Technologies</span>
+    <h2 class="section-title">Stack Technique</h2>
+  </div>
+  <div class="tech-grid">
+    <div class="tech-pill"><span>🐍</span> Python / FastAPI</div>
+    <div class="tech-pill"><span>🔷</span> Angular 17</div>
+    <div class="tech-pill"><span>💙</span> Flutter / Dart</div>
+    <div class="tech-pill"><span>🎨</span> Angular Material</div>
+    <div class="tech-pill"><span>📈</span> Chart.js</div>
+    <div class="tech-pill"><span>🗄️</span> SQLAlchemy / SQLite</div>
+    <div class="tech-pill"><span>🔐</span> JWT Auth</div>
+    <div class="tech-pill"><span>⚡</span> Uvicorn / ASGI</div>
+    <div class="tech-pill"><span>📅</span> APScheduler</div>
+    <div class="tech-pill"><span>📦</span> QR Code Sécurisé</div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>ST2I – Système de Gestion de Pointage et de Présences</p>
+  <p style="margin-top:8px;">
+    <a href="https://github.com/cedrickemmanuel25/ST2I" target="_blank">GitHub</a>
+    &nbsp;·&nbsp;
+    Développé avec ❤️ par Cedrick Emmanuel
+  </p>
+</footer>
+
+<script>
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      document.querySelector(a.getAttribute('href'))?.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+</script>
+</body>
+</html>
