@@ -1,0 +1,22 @@
+<section class="features-section">
+  <div class="features-container">
+    
+    <div class="features-header">
+      <h2>Tout ce dont vous avez besoin</h2>
+      <p>Une suite complète d'outils pour fiabiliser et simplifier la gestion de vos présences au quotidien.</p>
+    </div>
+
+    <div class="features-grid" [class.show]="isVisible()">
+      
+      @for (feat of features; track feat.title; let i = $index) {
+        <div class="feature-card" [style.transition-delay]="(i * 0.1) + 's'">
+          <div class="feature-icon">{{ feat.icon }}</div>
+          <h3 class="feature-title">{{ feat.title }}</h3>
+          <p class="feature-desc">{{ feat.desc }}</p>
+        </div>
+      }
+
+    </div>
+
+  </div>
+</section>

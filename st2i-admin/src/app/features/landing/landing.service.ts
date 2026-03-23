@@ -1,9 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../../environments/environment';
 
-export interface DemoRequest {
+export interface DemoFormData {
   nom: string;
   email: string;
   entreprise: string;
@@ -12,14 +11,9 @@ export interface DemoRequest {
 
 @Injectable({ providedIn: 'root' })
 export class LandingService {
-  private apiUrl = environment.apiUrl;
+  private http = inject(HttpClient);
 
-  constructor(private http: HttpClient) {}
-
-  submitDemoRequest(form: DemoRequest): Observable<{ message: string }> {
-    return this.http.post<{ message: string }>(
-      `${this.apiUrl}/demo-request`,
-      form
-    );
+  submitDemo(data: DemoFormData): Observable<any> {
+    return this.http.post('/api/demo-request', data);
   }
 }

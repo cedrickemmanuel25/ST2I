@@ -1,0 +1,41 @@
+:host { display: block; }
+
+.footer {
+  background: #0F2236; color: white; padding: 64px 20px 0;
+}
+
+.footer-container {
+  max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; padding-bottom: 64px;
+}
+
+.col-title { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 700; margin-bottom: 24px; color: white; }
+
+.brand-col {
+  .footer-logo .logo-text { font-family: 'Syne', sans-serif; font-size: 28px; font-weight: 800; color: white; }
+  .brand-desc { margin-top: 16px; font-size: 15px; color: #cbd5e1; line-height: 1.6; max-width: 380px; }
+}
+
+.links-col ul {
+  list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px;
+  li a { color: #cbd5e1; text-decoration: none; font-size: 15px; transition: color 0.2s; }
+  li a:hover { color: var(--color-accent); }
+}
+
+.contact-col {
+  .contact-item { display: flex; align-items: center; gap: 12px; color: #cbd5e1; font-size: 15px; margin-bottom: 16px; }
+  .icon { font-size: 18px; }
+}
+
+.footer-bottom {
+  text-align: center; padding: 24px 20px; border-top: 1px solid rgba(255,255,255,0.1);
+  p { margin: 0; font-size: 14px; color: #94a3b8; }
+}
+
+@media (max-width: 900px) {
+  .footer-container { grid-template-columns: 1fr 1fr; }
+  .brand-col { grid-column: 1 / -1; }
+}
+
+@media (max-width: 600px) {
+  .footer-container { grid-template-columns: 1fr; gap: 32px; }
+}

@@ -1,0 +1,30 @@
+<section class="how-it-works-section" [class.show]="isVisible()">
+  <div class="hiw-container">
+    
+    <div class="hiw-header">
+      <h2>Comment ça marche</h2>
+      <p>Une configuration simple pour un pointage immédiat et sécurisé.</p>
+    </div>
+
+    <div class="timeline">
+      
+      @for (step of steps; track step.num; let i = $index; let isLast = $last) {
+        <div class="timeline-step">
+          <div class="step-marker" [style.transition-delay]="(i * 0.2) + 's'">
+            <div class="marker-circle">{{ step.num }}</div>
+            @if (!isLast) {
+              <div class="marker-line" [style.transition-delay]="(i * 0.2 + 0.1) + 's'"></div>
+            }
+          </div>
+          
+          <div class="step-content" [style.transition-delay]="(i * 0.2 + 0.1) + 's'">
+            <h3>{{ step.title }}</h3>
+            <p>{{ step.desc }}</p>
+          </div>
+        </div>
+      }
+
+    </div>
+
+  </div>
+</section>

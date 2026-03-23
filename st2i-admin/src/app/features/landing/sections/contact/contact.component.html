@@ -1,0 +1,80 @@
+<section class="contact-section">
+  <div class="contact-container">
+    
+    <div class="contact-header">
+      <h2>Prêt à moderniser la gestion de vos présences ?</h2>
+      <p>Demandez une démonstration gratuite et découvrez comment ST2I peut simplifier votre quotidien.</p>
+    </div>
+
+    <div class="form-wrapper">
+      @if (isSuccess) {
+        <div class="success-message">
+          <div class="success-icon">✓</div>
+          <h3>Demande envoyée !</h3>
+          <p>Nous vous contacterons sous 24h.</p>
+        </div>
+      } @else {
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          
+          <div class="form-group">
+            <label for="nom">Votre nom</label>
+            <input id="nom" type="text" formControlName="nom" placeholder="Jean Dupont">
+            @if (form.get('nom')?.touched && form.get('nom')?.hasError('required')) {
+              <span class="error">Le nom est requis</span>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input id="email" type="email" formControlName="email" placeholder="jean@entreprise.com">
+            @if (form.get('email')?.touched) {
+              @if (form.get('email')?.hasError('required')) {
+                <span class="error">L'email est requis</span>
+              } @else if (form.get('email')?.hasError('email')) {
+                <span class="error">Adresse email invalide</span>
+              }
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="entreprise">Entreprise</label>
+            <input id="entreprise" type="text" formControlName="entreprise" placeholder="Nom de votre entreprise">
+            @if (form.get('entreprise')?.touched && form.get('entreprise')?.hasError('required')) {
+              <span class="error">L'entreprise est requise</span>
+            }
+          </div>
+
+          <div class="form-group">
+            <label for="taille">Nombre d'employés</label>
+            <div class="select-wrapper">
+              <select id="taille" formControlName="taille">
+                <option value="" disabled selected>Sélectionnez la taille</option>
+                <option value="1-50">1-50</option>
+                <option value="51-200">51-200</option>
+                <option value="201-500">201-500</option>
+                <option value="500+">500+</option>
+              </select>
+            </div>
+            @if (form.get('taille')?.touched && form.get('taille')?.hasError('required')) {
+              <span class="error">Ce champ est requis</span>
+            }
+          </div>
+
+          @if (errorMessage) {
+            <div class="error-alert">{{ errorMessage }}</div>
+          }
+
+          <button type="submit" class="btn-submit" [disabled]="form.invalid || isLoading">
+            @if (isLoading) {
+              <span class="spinner"></span> Envoi en cours...
+            } @else {
+              Recevoir ma démo gratuite
+            }
+          </button>
+
+        </form>
+      }
+    </div>
+
+  </div>
+</section>

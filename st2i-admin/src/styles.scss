@@ -1,5 +1,26 @@
 @use '@angular/material' as mat;
 
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Syne:wght@500;600;700;800&display=swap');
+
+:root {
+  --color-primary: #1E3A5F;
+  --color-accent: #2E86C1;
+  --color-success: #27AE60;
+  --color-bg: #F8F9FA;
+  --color-text: #1A1A2E;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  margin: 0; padding: 0;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Syne', sans-serif;
+}
+
 // Custom palette for ST2I Navy (#1E3A5F)
 $st2i-primary: (
   50: #e4e7ec,

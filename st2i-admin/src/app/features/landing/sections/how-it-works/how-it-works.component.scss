@@ -1,0 +1,64 @@
+:host { display: block; }
+
+.how-it-works-section {
+  padding: 100px 20px; background: #EBF4FD; overflow: hidden;
+}
+
+.hiw-container {
+  max-width: 1000px; margin: 0 auto;
+}
+
+.hiw-header {
+  text-align: center; margin-bottom: 72px;
+  h2 { font-size: clamp(32px, 4vw, 40px); font-weight: 800; color: var(--color-primary); margin-bottom: 16px; }
+  p { font-size: 18px; color: #4A5568; }
+}
+
+.timeline {
+  display: flex; gap: 24px; position: relative;
+}
+
+.timeline-step {
+  flex: 1; display: flex; flex-direction: column; position: relative;
+}
+
+.step-marker {
+  display: flex; align-items: center; margin-bottom: 24px;
+  opacity: 0; transform: scale(0.8); transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.marker-circle {
+  width: 56px; height: 56px; border-radius: 50%; flex-shrink: 0;
+  background: white; border: 3px solid var(--color-accent);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Syne', sans-serif; font-size: 20px; font-weight: 800; color: var(--color-primary);
+  box-shadow: 0 8px 16px rgba(46,134,193,0.15); z-index: 2; position: relative;
+}
+
+.marker-line {
+  flex: 1; height: 3px; background: var(--color-accent);
+  margin-left: -4px; z-index: 1;
+  transform-origin: left center; transform: scaleX(0); transition: transform 0.6s ease-in-out;
+}
+
+.step-content {
+  opacity: 0; transform: translateY(20px); transition: all 0.5s ease;
+  h3 { font-size: 18px; font-weight: 700; color: var(--color-primary); margin-bottom: 12px; }
+  p { font-size: 15px; color: #4A5568; line-height: 1.6; }
+}
+
+/* Animations Trigger */
+.how-it-works-section.show {
+  .step-marker { opacity: 1; transform: scale(1); }
+  .marker-line { transform: scaleX(1); }
+  .step-content { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+  .timeline { flex-direction: column; gap: 32px; }
+  .timeline-step { flex-direction: row; gap: 24px; }
+  .step-marker { flex-direction: column; margin-bottom: 0; }
+  .marker-line { width: 3px; height: 100%; margin-left: 0; margin-top: -4px; transform-origin: top center; transform: scaleY(0); }
+  .how-it-works-section.show .marker-line { transform: scaleY(1); }
+  .step-content { padding-top: 12px; }
+}

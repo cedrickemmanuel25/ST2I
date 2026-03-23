@@ -1,0 +1,56 @@
+:host { display: block; }
+
+.features-section {
+  padding: 100px 20px; background: white;
+}
+
+.features-container {
+  max-width: 1200px; margin: 0 auto;
+}
+
+.features-header {
+  text-align: center; max-width: 600px; margin: 0 auto 64px;
+  h2 { font-size: clamp(32px, 4vw, 40px); font-weight: 800; color: var(--color-primary); margin-bottom: 16px; }
+  p { font-size: 18px; color: #4A5568; line-height: 1.6; }
+}
+
+.features-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px;
+}
+
+.feature-card {
+  background: white; border-radius: 16px; padding: 32px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+  
+  /* Initial hidden state */
+  opacity: 0; transform: translateY(30px);
+
+  &:hover {
+    transform: translateY(-6px) !important;
+    border-color: var(--color-accent);
+    box-shadow: 0 12px 30px rgba(46,134,193,0.1);
+  }
+
+  .feature-icon {
+    width: 56px; height: 56px; border-radius: 50%; background: #F0F4F8;
+    display: flex; align-items: center; justify-content: center; font-size: 24px;
+    margin-bottom: 24px; color: var(--color-primary);
+  }
+
+  .feature-title { font-size: 20px; font-weight: 700; color: var(--color-text); margin-bottom: 12px; }
+  .feature-desc { font-size: 15px; color: #718096; line-height: 1.6; }
+}
+
+/* Show class applied by IntersectionObserver */
+.features-grid.show .feature-card {
+  opacity: 1; transform: translateY(0);
+}
+
+@media (max-width: 992px) {
+  .features-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .features-grid { grid-template-columns: 1fr; }
+}

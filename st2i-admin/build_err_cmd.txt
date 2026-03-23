@@ -1,0 +1,73 @@
+- Building...
+
+Initial chunk files   | Names                |   Raw size | Estimated transfer size
+chunk-C33Z5VKV.js     | -                    |  187.61 kB |                54.29 kB
+chunk-YPD4CLGS.js     | -                    |  108.50 kB |                26.96 kB
+styles-G2YTK6VI.css   | styles               |   90.29 kB |                 8.24 kB
+chunk-M3QT65SD.js     | -                    |   74.39 kB |                18.26 kB
+chunk-ADZH572F.js     | -                    |   50.16 kB |                 5.22 kB
+main-GR4PSFKD.js      | main                 |   46.94 kB |                11.16 kB
+chunk-R6FDXK2T.js     | -                    |   46.40 kB |                 9.87 kB
+chunk-LEQ6UJ27.js     | -                    |   43.52 kB |                 9.51 kB
+chunk-EINSRHMX.js     | -                    |   41.72 kB |                 8.34 kB
+polyfills-FFHMD2TL.js | polyfills            |   33.71 kB |                11.02 kB
+chunk-ORRRXK5F.js     | -                    |   30.40 kB |                 4.00 kB
+chunk-ZJ5ZQZVC.js     | -                    |    8.54 kB |                 2.42 kB
+chunk-EJJBCPAK.js     | -                    |    4.15 kB |                 1.04 kB
+chunk-BRCV3VW4.js     | -                    |    1.44 kB |               545 bytes
+chunk-CWTPBX7D.js     | -                    |    1.25 kB |               564 bytes
+chunk-GKGLPTUB.js     | -                    | 1015 bytes |              1015 bytes
+chunk-YT476IYB.js     | -                    |   84 bytes |                84 bytes
+
+                      | Initial total        |  770.10 kB |               172.48 kB
+
+Lazy chunk files      | Names                |   Raw size | Estimated transfer size
+chunk-SKDS4EDU.js     | -                    |  215.86 kB |                64.76 kB
+chunk-WIYX5CEO.js     | -                    |   82.88 kB |                11.84 kB
+chunk-PQKZD6PS.js     | -                    |   82.58 kB |                15.14 kB
+chunk-5G7NYJKW.js     | -                    |   71.58 kB |                 7.69 kB
+chunk-EQJN7Z53.js     | browser              |   62.25 kB |                16.51 kB
+chunk-MKUN2XV4.js     | -                    |   61.88 kB |                13.95 kB
+chunk-AJ2W4BCX.js     | users-list-component |   43.08 kB |                11.40 kB
+chunk-XLAXKXLH.js     | -                    |   41.91 kB |                 8.85 kB
+chunk-K5BX7GFM.js     | -                    |   36.33 kB |                 7.43 kB
+chunk-AXQVKFX2.js     | presences-routes     |   27.18 kB |                 7.00 kB
+chunk-575T2TKQ.js     | settings-routes      |   25.65 kB |                 4.76 kB
+chunk-FUVEQQPK.js     | -                    |   23.66 kB |                 6.42 kB
+chunk-QLW5NSEW.js     | auth-routes          |   20.69 kB |                 5.89 kB
+chunk-VIQ2GBSH.js     | -                    |   13.67 kB |                 2.72 kB
+chunk-PUXCOVXB.js     | dashboard-routes     |   13.27 kB |                 3.90 kB
+...and 7 more lazy chunks files. Use "--verbose" to show all the files.
+
+Application bundle generation failed. [48.839 seconds]
+
+▲ [WARNING] bundle initial exceeded maximum budget. Budget 500.00 kB was not met by 270.10 kB with a total of 770.10 kB.
+
+
+▲ [WARNING] src/app/features/landing/sections/hero/hero.component.scss exceeded maximum budget. Budget 2.00 kB was not met by 2.18 kB with a total of 4.18 kB.
+
+
+▲ [WARNING] src/app/features/dashboard/dashboard/dashboard.component.scss exceeded maximum budget. Budget 2.00 kB was not met by 1011 bytes with a total of 2.99 kB.
+
+
+▲ [WARNING] src/app/features/presences/presences-page/presences-page.component.scss exceeded maximum budget. Budget 2.00 kB was not met by 286 bytes with a total of 2.28 kB.
+
+
+▲ [WARNING] src/app/features/landing/sections/navbar/navbar.component.scss exceeded maximum budget. Budget 2.00 kB was not met by 431 bytes with a total of 2.42 kB.
+
+
+▲ [WARNING] src/app/features/landing/sections/contact/contact.component.scss exceeded maximum budget. Budget 2.00 kB was not met by 667 bytes with a total of 2.65 kB.
+
+
+▲ [WARNING] src/app/features/users/users-list/users-list.component.scss exceeded maximum budget. Budget 2.00 kB was not met by 469 bytes with a total of 2.46 kB.
+
+
+▲ [WARNING] Module 'file-saver' used by 'src/app/features/reports/reports-page/reports-page.component.ts' is not ESM
+
+  CommonJS or AMD dependencies can cause optimization bailouts.
+  For more information see: https://angular.io/guide/build#configuring-commonjs-dependencies
+
+
+X [ERROR] src/app/features/landing/sections/hero/hero.component.scss exceeded maximum budget. Budget 4.00 kB was not met by 185 bytes with a total of 4.18 kB.
+
+

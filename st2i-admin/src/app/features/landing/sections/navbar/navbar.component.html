@@ -1,0 +1,25 @@
+<nav class="navbar" [class.scrolled]="scrolled()">
+  <div class="nav-container">
+    
+    <a (click)="scrollTo('hero')" class="nav-logo">
+      <div class="logo-text">ST2I</div>
+      <div class="logo-sub">Pointage Intelligent</div>
+    </a>
+
+    <div class="nav-menu" [class.open]="mobileOpen()">
+      <a (click)="scrollTo('features')" [class.active]="activeSection() === 'features'">Fonctionnalités</a>
+      <a (click)="scrollTo('how-it-works')" [class.active]="activeSection() === 'how-it-works'">Comment ça marche</a>
+      <a (click)="scrollTo('contact')" [class.active]="activeSection() === 'contact'">Contact</a>
+
+      <button class="btn-demo mobile-only" (click)="scrollTo('contact')">Demander une démo</button>
+    </div>
+
+    <div class="nav-actions">
+      <button class="btn-demo desktop-only" (click)="scrollTo('contact')">Demander une démo</button>
+      <button class="nav-burger" (click)="toggleMobile()" [class.active]="mobileOpen()" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+
+  </div>
+</nav>
