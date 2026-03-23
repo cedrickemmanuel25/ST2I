@@ -1,0 +1,138 @@
+.sidenav-container {
+  height: 100%;
+}
+
+.sidenav {
+  width: 250px;
+  background-color: #ffffff;
+  border-right: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 4px 0 10px rgba(0, 0, 0, 0.02);
+}
+
+.logo-container {
+  padding: 32px 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  
+  .logo-icon {
+    color: #1e3a5f;
+    font-size: 32px;
+    height: 32px;
+    width: 32px;
+  }
+  
+  .logo-text {
+    font-size: 18px;
+    font-weight: 800;
+    color: #1e3a5f;
+    letter-spacing: 1px;
+  }
+}
+
+.nav-list {
+  padding-top: 0;
+  
+  mat-list-item {
+    margin: 4px 12px;
+    border-radius: 8px;
+    color: #64748b;
+    transition: all 0.2s ease;
+    
+    &:hover {
+      background-color: #f1f5f9;
+      color: #1e3a5f;
+    }
+  }
+  
+  .mat-icon {
+    margin-right: 12px;
+    color: #94a3b8;
+  }
+}
+
+.header {
+  background-color: white !important;
+  color: #1e3a5f !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  padding: 0 24px;
+  display: flex;
+  gap: 16px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.breadcrumb {
+  font-size: 14px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.header-btn {
+  position: relative;
+  
+  .badge {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    background-color: #e74c3c;
+    color: white;
+    font-size: 10px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid white;
+  }
+}
+
+.profile-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px;
+  border-radius: 40px;
+  background-color: #f8fafc;
+  
+  .avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  span {
+    font-weight: 600;
+    color: #1e3a5f;
+  }
+}
+
+.content {
+  padding: 24px;
+  min-height: calc(100vh - 64px);
+  background-color: #f4f7fa;
+  position: relative;
+}
+
+// Media queries for mini-sidebar on tablet
+@media (min-width: 600px) and (max-width: 1024px) {
+  .sidenav {
+    width: 80px;
+    
+    .logo-text, span[matListItemTitle] {
+      display: none;
+    }
+    
+    .logo-container {
+      justify-content: center;
+      padding: 24px 0;
+    }
+  }
+}

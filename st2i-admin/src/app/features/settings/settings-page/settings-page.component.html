@@ -1,0 +1,51 @@
+<div class="settings-container">
+  <div class="header">
+    <h1>Paramètres</h1>
+    <p>Gérez vos préférences et la configuration de l'application</p>
+  </div>
+
+  <div class="settings-grid">
+    <mat-card class="settings-card">
+      <mat-card-header>
+        <mat-icon mat-card-avatar>account_circle</mat-icon>
+        <mat-card-title>Mon Profil</mat-card-title>
+      </mat-card-header>
+      <mat-divider></mat-divider>
+      <mat-card-content>
+        <div class="form-row">
+          <mat-form-field appearance="outline">
+            <mat-label>Nom d'affichage</mat-label>
+            <input matInput value="Administrateur ST2I">
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput value="admin@st2i.ci" disabled>
+          </mat-form-field>
+        </div>
+        <button mat-raised-button color="primary">Enregistrer les modifications</button>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="settings-card">
+      <mat-card-header>
+        <mat-icon mat-card-avatar>notifications</mat-icon>
+        <mat-card-title>Notifications</mat-card-title>
+      </mat-card-header>
+      <mat-divider></mat-divider>
+      <mat-card-content>
+        <div class="toggle-row">
+          <span>Alertes de retard (Email)</span>
+          <mat-slide-toggle checked></mat-slide-toggle>
+        </div>
+        <div class="toggle-row">
+          <span>Rapports hebdomadaires automatiques</span>
+          <mat-slide-toggle checked></mat-slide-toggle>
+        </div>
+        <div class="toggle-row">
+          <span>Alertes de sécurité</span>
+          <mat-slide-toggle></mat-slide-toggle>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

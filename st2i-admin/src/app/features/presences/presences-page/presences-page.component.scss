@@ -1,0 +1,178 @@
+.presence-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 32px;
+  background-color: #f8fafc;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  
+  h1 { 
+    margin: 0 0 16px 0; 
+    font-weight: 800; 
+    color: #1e3a5f; 
+  }
+}
+
+.view-switcher {
+  display: flex;
+  gap: 8px;
+  background: #e2e8f0;
+  padding: 4px;
+  border-radius: 8px;
+  
+  button {
+    border-radius: 6px;
+    font-weight: 700;
+  }
+}
+
+.header-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.main-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 24px;
+}
+
+.filter-sidebar {
+  padding: 24px;
+  height: fit-content;
+  
+  h3 { margin-top: 0; font-weight: 700; color: #1e3a5f; margin-bottom: 24px; }
+  
+  .filter-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+}
+
+.content-area {
+  position: relative;
+  
+  .loader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+  }
+}
+
+// Calendar Styles
+.calendar-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px;
+  border-bottom: 1px solid #e2e8f0;
+  
+  h2 { margin: 0; font-weight: 800; color: #1e3a5f; font-size: 18px; }
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  background-color: #e2e8f0;
+  gap: 1px;
+}
+
+.day-name {
+  background: #f1f5f9;
+  padding: 12px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 12px;
+  color: #64748b;
+}
+
+.calendar-day {
+  background: white;
+  min-height: 120px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  
+  .day-number {
+    font-weight: 700;
+    font-size: 14px;
+    color: #1e3a5f;
+  }
+  
+  &.not-current {
+    background: #f8fafc;
+    .day-number { color: #cbd5e1; }
+  }
+  
+  &.is-today {
+    background: #eff6ff;
+    .day-number {
+      background: #1e3a5f;
+      color: white;
+      width: 24px;
+      height: 24px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+  }
+}
+
+.day-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  
+  .stat {
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: help;
+    
+    &.present { background: #dcfce7; color: #166534; }
+    &.absent { background: #fee2e2; color: #991b1b; }
+  }
+}
+
+// Matrix Style
+.matrix-table {
+  width: 100%;
+  border-collapse: collapse;
+  
+  th, td {
+    padding: 16px;
+    border: 1px solid #e2e8f0;
+    text-align: center;
+  }
+  
+  .user-cell {
+    text-align: left;
+    font-weight: 600;
+    background: #f8fafc;
+  }
+  
+  .status-cell {
+    mat-icon {
+      &.present { color: #10b981; }
+      &.absent { color: #ef4444; }
+    }
+  }
+}
+
+.full-width { width: 100%; }

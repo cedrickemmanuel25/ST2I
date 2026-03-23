@@ -1,0 +1,106 @@
+.page-container {
+  padding: 24px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+
+  .title-section {
+    h1 { margin: 0; font-size: 28px; color: #1a237e; font-weight: 700; }
+    .subtitle { margin: 4px 0 0; color: #666; font-size: 16px; }
+  }
+
+  .tolerance-field {
+    width: 150px;
+  }
+}
+
+.main-tabs {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.tab-content {
+  padding: 24px;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 24px;
+}
+
+.schedule-form, .exception-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  .time-row {
+      display: flex;
+      gap: 12px;
+      mat-form-field { flex: 1; }
+  }
+}
+
+.weekly-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 12px;
+    height: 100%;
+
+    .day-col {
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 12px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 400px;
+        border: 1px solid #eee;
+
+        .day-name { font-weight: bold; color: #1a237e; margin-bottom: 12px; border-bottom: 2px solid #1a237e; width: 100%; text-align: center; padding-bottom: 4px; }
+        
+        .shift-cards {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .shift-card {
+            background: #fff;
+            padding: 8px;
+            border-radius: 6px;
+            border-left: 4px solid #1a237e;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            font-size: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .del-btn { width: 30px; height: 30px; line-height: 30px; mat-icon { font-size: 18px; } }
+        }
+    }
+}
+
+.exceptions-layout {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    gap: 40px;
+}
+
+.exceptions-list {
+    h3 { margin-top: 0; color: #1a237e; }
+    .empty { padding: 40px; text-align: center; color: #999; }
+}
+
+.calendar-placeholder {
+    padding: 100px;
+    text-align: center;
+    color: #ccc;
+    mat-icon { font-size: 64px; width: 64px; height: 64px; margin-bottom: 16px; }
+}

@@ -1,0 +1,91 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false">
+    
+    <div class="logo-container">
+      <mat-icon class="logo-icon">qr_code_scanner</mat-icon>
+      <span class="logo-text">ST2I ADMIN</span>
+    </div>
+
+    <mat-nav-list class="nav-list">
+      <a mat-list-item routerLink="/dashboard" routerLinkActive="active-link">
+        <mat-icon matListItemIcon>dashboard</mat-icon>
+        <span matListItemTitle>Dashboard</span>
+      </a>
+      <a mat-list-item routerLink="/utilisateurs" routerLinkActive="active-link">
+        <mat-icon matListItemIcon>person</mat-icon>
+        <span matListItemTitle>Utilisateurs</span>
+      </a>
+      <a mat-list-item routerLink="/presences" routerLinkActive="active-link">
+        <mat-icon matListItemIcon>event_available</mat-icon>
+        <span matListItemTitle>Présences</span>
+      </a>
+      <a mat-list-item routerLink="/horaires" routerLinkActive="active-link">
+        <mat-icon matListItemIcon>schedule</mat-icon>
+        <span matListItemTitle>Horaires</span>
+      </a>
+      <a mat-list-item routerLink="/statistiques" routerLinkActive="active-link">
+        <mat-icon matListItemIcon>bar_chart</mat-icon>
+        <span matListItemTitle>Statistiques</span>
+      </a>
+      <a mat-list-item routerLink="/rapports" routerLinkActive="active-link">
+        <mat-icon matListItemIcon>description</mat-icon>
+        <span matListItemTitle>Rapports</span>
+      </a>
+      <a mat-list-item routerLink="/parametres" routerLinkActive="active-link">
+        <mat-icon matListItemIcon>settings</mat-icon>
+        <span matListItemTitle>Paramètres</span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <mat-toolbar color="primary" class="header">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      
+      <span class="breadcrumb">Admin / {{ (isHandset$ | async) ? '' : 'ST2I' }}</span>
+      
+      <span class="spacer"></span>
+      
+      <button mat-icon-button class="header-btn">
+        <mat-icon>notifications</mat-icon>
+        <span class="badge">3</span>
+      </button>
+
+      <button mat-button [matMenuTriggerFor]="profileMenu" class="profile-btn">
+        <img src="assets/avatar-placeholder.png" alt="Avatar" class="avatar" onerror="this.src='https://ui-avatars.com/api/?name=Admin+User&background=2E86C1&color=fff'">
+        <span *ngIf="!(isHandset$ | async)">Admin ST2I</span>
+        <mat-icon>expand_more</mat-icon>
+      </button>
+
+      <mat-menu #profileMenu="matMenu">
+        <button mat-menu-item>
+          <mat-icon>account_circle</mat-icon>
+          <span>Mon profil</span>
+        </button>
+        <button mat-menu-item routerLink="/parametres">
+          <mat-icon>settings</mat-icon>
+          <span>Paramètres</span>
+        </button>
+        <mat-divider></mat-divider>
+        <button mat-menu-item routerLink="/auth/login">
+          <mat-icon>logout</mat-icon>
+          <span>Déconnexion</span>
+        </button>
+      </mat-menu>
+    </mat-toolbar>
+
+    <main class="content">
+      <router-outlet></router-outlet>
+    </main>
+  </mat-sidenav-content>
+</mat-sidenav-container>

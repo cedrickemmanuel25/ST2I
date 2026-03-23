@@ -1,0 +1,40 @@
+<h2 mat-dialog-title>QR Code d'Accès</h2>
+<mat-dialog-content>
+  <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+  
+  <div class="qr-container" *ngIf="!isLoading && qrBase64">
+    <div class="user-id-card">
+        <div class="card-header">
+            <span class="brand">ST2I ADMIN</span>
+            <span class="role-chip" [ngClass]="data.user.role">{{ data.user.role }}</span>
+        </div>
+        
+        <div class="qr-wrapper">
+            <img [src]="'data:image/png;base64,' + qrBase64" alt="QR Code" class="qr-image">
+        </div>
+
+        <div class="user-meta">
+            <h3>{{ data.user.prenom }} {{ data.user.nom }}</h3>
+            <p>{{ data.user.email }}</p>
+        </div>
+    </div>
+    
+    <p class="expiry-note" *ngIf="data.user.qr_code_expiry">
+        Expire le : {{ data.user.qr_code_expiry | date:'shortDate' }}
+    </p>
+  </div>
+
+  <div class="error-container" *ngIf="!isLoading && !qrBase64">
+    <mat-icon color="warn">error_outline</mat-icon>
+    <p>Impossible de charger le QR Code. Veuillez le régénérer.</p>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>FERMER</button>
+  <button mat-button color="primary" (click)="printQR()" [disabled]="!qrBase64">
+    <mat-icon>print</mat-icon> IMPRIMER
+  </button>
+  <button mat-flat-button color="primary" (click)="downloadQR()" [disabled]="!qrBase64">
+    <mat-icon>download</mat-icon> TÉLÉCHARGER
+  </button>
+</mat-dialog-actions>

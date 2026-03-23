@@ -1,0 +1,39 @@
+# Dependencies
+node_modules/
+.pub-cache/
+.dart_tool/
+build/
+dist/
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Database
+*.db
+*.sqlite3
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+test_results.log
+pytest_output.txt
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Flutter/Mobile
+ios/Flutter/Generated.xcconfig
+ios/Flutter/flutter_export_environment.sh
+android/key.properties
+*.keystore
+*.jks

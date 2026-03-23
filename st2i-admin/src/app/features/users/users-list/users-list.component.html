@@ -1,0 +1,180 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav-content>
+    <div class="page-container">
+      <div class="page-header">
+        <div class="header-info">
+          <h1>Gestion des Utilisateurs</h1>
+          <span class="count-badge">{{ totalUsers }} au total</span>
+        </div>
+        <button mat-flat-button color="primary" (click)="openUserForm()">
+          <mat-icon>person_add</mat-icon>
+          AJOUTER UN UTILISATEUR
+        </button>
+      </div>
+
+      <mat-card class="table-card">
+        <div class="toolbar">
+          <mat-form-field appearance="outline" class="search-field">
+            <mat-icon matPrefix>search</mat-icon>
+            <input matInput [formControl]="searchControl" placeholder="Rechercher par nom, email...">
+          </mat-form-field>
+
+          <div class="filters">
+            <mat-form-field appearance="outline">
+              <mat-label>Rôle</mat-label>
+              <mat-select [formControl]="roleFilter">
+                <mat-option value="">Tous les rôles</mat-option>
+                <mat-option value="admin">Administrateur</mat-option>
+                <mat-option value="employé">Employé</mat-option>
+                <mat-option value="étudiant">Étudiant</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Statut</mat-label>
+              <mat-select [formControl]="statutFilter">
+                <mat-option value="">Tous les statuts</mat-option>
+                <mat-option value="actif">Actif</mat-option>
+                <mat-option value="inactif">Inactif</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+
+        <div class="table-responsive">
+          <table mat-table [dataSource]="users" class="full-width">
+            <ng-container matColumnDef="avatar">
+              <th mat-header-cell *matHeaderCellDef></th>
+              <td mat-cell *matCellDef="let user">
+                <div class="avatar-circle" [ngClass]="user.role">
+                  {{ user.prenom[0] }}{{ user.nom[0] }}
+                </div>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="fullName">
+              <th mat-header-cell *matHeaderCellDef>Nom Complet</th>
+              <td mat-cell *matCellDef="let user" class="font-bold">
+                {{ user.prenom }} {{ user.nom }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="email">
+              <th mat-header-cell *matHeaderCellDef>Email</th>
+              <td mat-cell *matCellDef="let user">{{ user.email }}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="role">
+              <th mat-header-cell *matHeaderCellDef>Rôle</th>
+              <td mat-cell *matCellDef="let user">
+                <span class="role-badge" [ngClass]="user.role">
+                  {{ user.role | titlecase }}
+                </span>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="statut">
+              <th mat-header-cell *matHeaderCellDef>Statut</th>
+              <td mat-cell *matCellDef="let user">
+                <mat-chip-listbox>
+                  <mat-chip-option [selectable]="false" [color]="user.statut === 'actif' ? 'accent' : 'warn'" selected>
+                    {{ user.statut | uppercase }}
+                  </mat-chip-option>
+                </mat-chip-listbox>
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="last_presence">
+              <th mat-header-cell *matHeaderCellDef>Dernière Présence</th>
+              <td mat-cell *matCellDef="let user" class="text-muted">
+                {{ user.last_presence | relativeDate }}
+              </td>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef>Actions</th>
+              <td mat-cell *matCellDef="let user" (click)="$event.stopPropagation()">
+                <button mat-icon-button [matMenuTriggerFor]="menu" matTooltip="Plus d'actions">
+                  <mat-icon>more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                  <button mat-menu-item (click)="openUserForm(user)">
+                    <mat-icon>edit</mat-icon>
+                    <span>Modifier</span>
+                  </button>
+                  <button mat-menu-item (click)="viewQrCode(user)">
+                    <mat-icon>qr_code</mat-icon>
+                    <span>Voir QR Code</span>
+                  </button>
+                  <button mat-menu-item (click)="regenerateQr(user)">
+                    <mat-icon>refresh</mat-icon>
+                    <span>Régénérer QR</span>
+                  </button>
+                  <mat-divider></mat-divider>
+                  <button mat-menu-item (click)="disableUser(user)" class="text-danger">
+                    <mat-icon color="warn">person_remove</mat-icon>
+                    <span class="text-danger">Désactiver</span>
+                  </button>
+                </mat-menu>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="user-row" (click)="onRowClick(row)"></tr>
+          </table>
+        </div>
+
+        <mat-paginator [length]="totalUsers" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 50]" (page)="onPageChange()" aria-label="Sélectionner la page"></mat-paginator>
+      </mat-card>
+    </div>
+  </mat-sidenav-content>
+
+  <mat-sidenav #drawer mode="over" position="end" [opened]="!!selectedUser" (closed)="selectedUser = null" class="details-drawer">
+    <div class="drawer-header">
+      <h2>Détails Utilisateur</h2>
+      <button mat-icon-button (click)="drawer.close()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="drawer-content" *ngIf="selectedUser">
+      <div class="profile-hero">
+        <div class="avatar-large" [ngClass]="selectedUser.role">
+          {{ selectedUser.prenom[0] }}{{ selectedUser.nom[0] }}
+        </div>
+        <h3>{{ selectedUser.prenom }} {{ selectedUser.nom }}</h3>
+        <p>{{ selectedUser.email }}</p>
+        <span class="role-badge" [ngClass]="selectedUser.role">{{ selectedUser.role }}</span>
+      </div>
+
+      <mat-divider></mat-divider>
+
+      <div class="section">
+        <h4>Informations</h4>
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="label">ID</span>
+            <span class="value">#{{ selectedUser.id }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Créé le</span>
+            <span class="value">{{ selectedUser.date_creation | date }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Dernier pointage</span>
+            <span class="value">{{ selectedUser.last_presence | relativeDate }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h4>Historique Récent</h4>
+        <div class="mini-history">
+          <!-- Placeholder for history if needed -->
+          <p class="text-muted italic">Consultation de l'historique complet disponible dans le module Présences.</p>
+        </div>
+      </div>
+    </div>
+  </mat-sidenav>
+</mat-sidenav-container>

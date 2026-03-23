@@ -1,0 +1,145 @@
+<div class="page-container">
+  <div class="header">
+    <div class="title-section">
+      <h1>Gestion des Horaires</h1>
+      <p class="subtitle">Définissez les shifts standards et gérez les exceptions</p>
+    </div>
+    <div class="settings">
+      <mat-form-field appearance="outline" class="tolerance-field">
+        <mat-label>Tolérance (min)</mat-label>
+        <input matInput type="number" [(ngModel)]="tolerance">
+        <span matSuffix>± min</span>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+
+  <mat-tab-group class="main-tabs">
+    <mat-tab label="Horaires Hebdomadaires">
+      <div class="tab-content">
+        <div class="grid-container">
+          <!-- Shift Creation Form -->
+          <mat-card class="form-card">
+            <mat-card-header>
+              <mat-card-title>Ajouter un Horaire Standard</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <form [formGroup]="scheduleForm" (ngSubmit)="onSubmitSchedule()" class="schedule-form">
+                <mat-form-field appearance="outline">
+                  <mat-label>Jour</mat-label>
+                  <mat-select formControlName="jour_semaine">
+                    <mat-option *ngFor="let day of days" [value]="day.value">{{ day.label }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+
+                <div class="time-row">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Heure Début</mat-label>
+                    <input matInput type="time" formControlName="heure_debut">
+                  </mat-form-field>
+                  <mat-form-field appearance="outline">
+                    <mat-label>Heure Fin</mat-label>
+                    <input matInput type="time" formControlName="heure_fin">
+                  </mat-form-field>
+                </div>
+
+                <mat-form-field appearance="outline">
+                  <mat-label>Description (optionnel)</mat-label>
+                  <input matInput formControlName="description">
+                </mat-form-field>
+
+                <button mat-flat-button color="primary" type="submit" [disabled]="scheduleForm.invalid || isLoading">
+                  <mat-icon>add</mat-icon> Ajouter au Planning
+                </button>
+              </form>
+            </mat-card-content>
+          </mat-card>
+
+          <!-- Weekly Dashboard -->
+          <div class="dashboard-section">
+            <div class="weekly-grid">
+              <div class="day-col" *ngFor="let day of days">
+                <div class="day-name">{{ day.label }}</div>
+                <div class="shift-cards">
+                  <ng-container *ngFor="let sch of schedules">
+                    <div class="shift-card" *ngIf="sch.jour_semaine === day.value">
+                      <div class="time">{{ sch.heure_debut }} - {{ sch.heure_fin }}</div>
+                      <button mat-icon-button color="warn" class="del-btn" (click)="deleteSchedule(sch.id)">
+                        <mat-icon>delete_outline</mat-icon>
+                      </button>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </mat-tab>
+
+    <mat-tab label="Congés & Jours Fériés">
+      <div class="tab-content exceptions-layout">
+        <mat-card class="form-card">
+          <mat-card-header>
+            <mat-card-title>Nouvelle Exception</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <form [formGroup]="exceptionForm" (ngSubmit)="onSubmitException()" class="exception-form">
+              <mat-form-field appearance="outline">
+                <mat-label>Date</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="date">
+                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Type</mat-label>
+                <mat-select formControlName="type">
+                  <mat-option value="ferie">Jour Férié</mat-option>
+                  <mat-option value="conge">Congé / Fermeture</mat-option>
+                  <mat-option value="exceptionnel">Horaire Exceptionnel</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline">
+                <mat-label>Description</mat-label>
+                <input matInput formControlName="description">
+              </mat-form-field>
+
+              <button mat-flat-button color="primary" type="submit" [disabled]="exceptionForm.invalid || isLoading">
+                <mat-icon>check</mat-icon> Enregistrer
+              </button>
+            </form>
+          </mat-card-content>
+        </mat-card>
+
+        <div class="exceptions-list">
+          <h3>Prochaines Exceptions</h3>
+          <mat-list>
+            <mat-list-item *ngFor="let ex of exceptions">
+              <mat-icon matListItemIcon [color]="ex.type === 'ferie' ? 'warn' : 'accent'">
+                {{ ex.type === 'ferie' ? 'event_available' : 'beach_access' }}
+              </mat-icon>
+              <div matListItemTitle>{{ ex.description }}</div>
+              <div matListItemLine>{{ ex.date | date:'fullDate' }}</div>
+              <div matListItemMeta>
+                <mat-chip>{{ ex.type | uppercase }}</mat-chip>
+              </div>
+            </mat-list-item>
+            <div class="empty" *ngIf="exceptions.length === 0">Aucune exception à venir.</div>
+          </mat-list>
+        </div>
+      </div>
+    </mat-tab>
+
+    <mat-tab label="Calendrier Mensuel">
+        <!-- Future: HoraireCalendarComponent integration -->
+        <div class="calendar-placeholder">
+            <mat-icon>calendar_month</mat-icon>
+            <h3>Visualisation Calendrier</h3>
+            <p>Module de calendrier mensuel interactif en cours d'intégration.</p>
+        </div>
+    </mat-tab>
+  </mat-tab-group>
+</div>

@@ -1,0 +1,87 @@
+@use '@angular/material' as mat;
+
+// Custom palette for ST2I Navy (#1E3A5F)
+$st2i-primary: (
+  50: #e4e7ec,
+  100: #b3c3d9, // Fix hex length
+  200: #8da2bd,
+  300: #5e7ba1,
+  400: #3b5d8d,
+  500: #1e3a5f,
+  600: #1a3457,
+  700: #162c4d,
+  800: #122543,
+  900: #0a1932,
+  contrast: (
+    500: white,
+  )
+);
+
+// Custom palette for ST2I Accent (#2E86C1)
+$st2i-accent: (
+  50: #e6f0f8,
+  100: #c1daed,
+  200: #98c1e1,
+  300: #6ea8d4,
+  400: #4f96cb,
+  500: #2e86c1,
+  600: #297eb9,
+  700: #2373af,
+  800: #1d69a5,
+  900: #125694,
+  contrast: (
+    500: white,
+  )
+);
+
+$primary-palette: mat.define-palette($st2i-primary, 500);
+$accent-palette: mat.define-palette($st2i-accent, 500);
+$warn-palette: mat.define-palette(mat.$red-palette);
+
+$theme: mat.define-light-theme((
+  color: (
+    primary: $primary-palette,
+    accent: $accent-palette,
+    warn: $warn-palette,
+  ),
+  typography: mat.define-typography-config(),
+  density: 0,
+));
+
+@include mat.core();
+@include mat.all-component-themes($theme);
+
+html, body { 
+  height: 100%; 
+  margin: 0; 
+  padding: 0;
+  font-family: 'Outfit', 'Roboto', sans-serif; 
+  background-color: #f4f7fa;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.mat-mdc-card {
+  border-radius: 12px !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05) !important;
+}
+
+.mat-mdc-form-field {
+  width: 100%;
+}
+
+// Sidebar active menu override
+.nav-list .active-link {
+  background-color: #1e3a5f !important;
+  color: white !important;
+  
+  .mat-icon {
+    color: white !important;
+  }
+}

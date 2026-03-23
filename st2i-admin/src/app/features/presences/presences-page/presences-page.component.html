@@ -1,0 +1,105 @@
+<div class="presence-container">
+  <div class="page-header">
+    <div class="header-left">
+      <h1>Suivi des Présences</h1>
+      <div class="view-switcher">
+        <button mat-button [color]="activeView === 'calendar' ? 'primary' : ''" (click)="activeView = 'calendar'; loadData()">
+          <mat-icon>calendar_month</mat-icon> CALENDRIER
+        </button>
+        <button mat-button [color]="activeView === 'weekly' ? 'primary' : ''" (click)="activeView = 'weekly'; loadData()">
+          <mat-icon>view_week</mat-icon> TABLEAU HEBDO
+        </button>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button mat-flat-button color="primary" (click)="openManualEntry()">
+        <mat-icon>add_circle</mat-icon> SAISIE MANUELLE
+      </button>
+      <button mat-stroked-button color="primary" *ngIf="activeView === 'weekly'" (click)="exportWeekly()">
+        <mat-icon>download</mat-icon> EXPORT EXCEL
+      </button>
+    </div>
+  </div>
+
+  <div class="main-layout">
+    <!-- Filter Sidebar (simplified) -->
+    <mat-card class="filter-sidebar">
+      <h3>Filtres</h3>
+      <div class="filter-form">
+        <mat-form-field appearance="outline">
+          <mat-label>Période</mat-label>
+          <input matInput [matDatepicker]="picker" [(ngModel)]="currentDate" (dateChange)="loadData()">
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Employé</mat-label>
+          <mat-select>
+            <mat-option value="">Tous les employés</mat-option>
+            <mat-option *ngFor="let user of users" [value]="user.id">
+              {{ user.prenom }} {{ user.nom }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <button mat-flat-button color="primary" class="full-width" (click)="loadData()">APPLIQUER</button>
+        <button mat-button class="full-width">RÉINITIALISER</button>
+      </div>
+    </mat-card>
+
+    <!-- Content Area -->
+    <div class="content-area">
+      <mat-progress-bar *ngIf="isLoading" mode="indeterminate" class="loader"></mat-progress-bar>
+
+      <!-- Calendar View -->
+      <mat-card *ngIf="activeView === 'calendar'" class="calendar-card">
+        <div class="calendar-header">
+          <button mat-icon-button (click)="prevMonth()"><mat-icon>chevron_left</mat-icon></button>
+          <h2>{{ currentDate | date:'MMMM yyyy' | uppercase }}</h2>
+          <button mat-icon-button (click)="nextMonth()"><mat-icon>chevron_right</mat-icon></button>
+        </div>
+        
+        <div class="calendar-grid">
+          <div class="day-name" *ngFor="let d of ['LUN','MAR','MER','JEU','VEN','SAM','DIM']">{{ d }}</div>
+          
+          <div *ngFor="let day of calendarDays" 
+               class="calendar-day" 
+               [ngClass]="{'not-current': !isCurrentMonth(day), 'is-today': isToday(day)}">
+            <span class="day-number">{{ day | date:'d' }}</span>
+            <div class="day-stats" *ngIf="getDayStat(day) as stat">
+              <span class="stat present" matTooltip="Présents">{{ stat.present_count }}</span>
+              <span class="stat absent" matTooltip="Absents">{{ stat.absent_count }}</span>
+            </div>
+          </div>
+        </div>
+      </mat-card>
+
+      <!-- Weekly Matrix View -->
+      <mat-card *ngIf="activeView === 'weekly'" class="matrix-card">
+        <div class="table-responsive">
+          <table class="matrix-table">
+            <thead>
+              <tr>
+                <th>Employé</th>
+                <th *ngFor="let day of ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim']">
+                  {{ day }}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of weeklyMatrix?.rows">
+                <td class="user-cell">{{ row.user_name }}</td>
+                <td *ngFor="let day of row.days" class="status-cell">
+                  <mat-icon *ngIf="day.status" [ngClass]="day.status" [matTooltip]="day.time">
+                    {{ day.status === 'present' ? 'check_circle' : 'cancel' }}
+                  </mat-icon>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</div>

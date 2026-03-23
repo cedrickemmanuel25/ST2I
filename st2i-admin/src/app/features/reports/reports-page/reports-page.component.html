@@ -1,0 +1,69 @@
+<div class="page-container">
+  <div class="header">
+    <h1>Centre de Rapports</h1>
+    <p class="subtitle">Générez et exportez les rapports de présence officiels</p>
+  </div>
+
+  <mat-card class="filter-card">
+    <form [formGroup]="filterForm" (ngSubmit)="loadPreview()" class="filter-form">
+      <mat-form-field appearance="outline">
+        <mat-label>Utilisateur (optionnel)</mat-label>
+        <input matInput type="number" formControlName="userId" placeholder="ID Utilisateur">
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Format d'export</mat-label>
+        <mat-select formControlName="format">
+          <mat-option value="excel">Microsoft Excel (.xlsx)</mat-option>
+          <mat-option value="pdf">Document PDF (.pdf)</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div class="actions">
+        <button mat-stroked-button color="primary" type="submit" [disabled]="isLoading">
+           <mat-icon>visibility</mat-icon> Aperçu
+        </button>
+        <button mat-flat-button color="primary" type="button" (click)="exportReport()">
+           <mat-icon>file_download</mat-icon> Exporter
+        </button>
+      </div>
+    </form>
+  </mat-card>
+
+  <mat-card class="preview-card" *ngIf="previewData.length > 0">
+    <mat-card-header>
+      <mat-card-title>Aperçu (10 derniers records)</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <table mat-table [dataSource]="previewData">
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef> Date </th>
+          <td mat-cell *matCellDef="let a"> {{ a.timestamp | date:'dd/MM/yyyy' }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="user">
+          <th mat-header-cell *matHeaderCellDef> Utilisateur </th>
+          <td mat-cell *matCellDef="let a"> {{ a.user?.prenom }} {{ a.user?.nom }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="type">
+          <th mat-header-cell *matHeaderCellDef> Type </th>
+          <td mat-cell *matCellDef="let a"> {{ a.type | uppercase }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="statut">
+          <th mat-header-cell *matHeaderCellDef> Statut </th>
+          <td mat-cell *matCellDef="let a"> {{ a.statut }} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </mat-card-content>
+  </mat-card>
+
+  <div class="empty-state" *ngIf="previewData.length === 0 && !isLoading">
+    <mat-icon>description</mat-icon>
+    <p>Configurez les filtres et cliquez sur Aperçu pour voir les données.</p>
+  </div>
+</div>

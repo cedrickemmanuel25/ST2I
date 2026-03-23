@@ -1,0 +1,13 @@
+fastapi
+uvicorn
+sqlalchemy
+psycopg2-binary
+python-jose[cryptography]
+python-dotenv
+alembic
+qrcode
+pillow
+apscheduler
+pytz
+pytest
+pytest-mock

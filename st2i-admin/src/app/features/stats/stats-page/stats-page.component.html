@@ -1,0 +1,36 @@
+<div class="stats-container">
+  <div class="header">
+    <h1>Analyses & Statistiques</h1>
+    <p>Vue détaillée de la performance de l'entreprise</p>
+  </div>
+
+  <div class="stats-grid">
+    <mat-card class="chart-card">
+      <mat-card-header>
+        <mat-card-title>Distribution aujourd'hui</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="chart-wrapper">
+          <canvas baseChart
+            [data]="pieChartData"
+            [type]="'pie'">
+          </canvas>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="chart-card">
+      <mat-card-header>
+        <mat-card-title>Taux de présence (7 derniers jours)</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="chart-wrapper">
+          <canvas baseChart
+            [data]="barChartData"
+            [type]="'bar'">
+          </canvas>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>
