@@ -24,3 +24,4 @@ import { FooterComponent } from './sections/footer/footer.component';
   styleUrls: ['./landing.component.scss']
 })
 export class LandingComponent {}
+// Trigger rebuild

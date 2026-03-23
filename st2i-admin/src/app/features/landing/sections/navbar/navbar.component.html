@@ -11,11 +11,11 @@
       <a (click)="scrollTo('how-it-works')" [class.active]="activeSection() === 'how-it-works'">Comment ça marche</a>
       <a (click)="scrollTo('contact')" [class.active]="activeSection() === 'contact'">Contact</a>
 
-      <button class="btn-demo mobile-only" (click)="scrollTo('contact')">Demander une démo</button>
+      <a class="btn-demo mobile-only" routerLink="/auth/login">Se connecter</a>
     </div>
 
     <div class="nav-actions">
-      <button class="btn-demo desktop-only" (click)="scrollTo('contact')">Demander une démo</button>
+      <a class="btn-demo desktop-only" routerLink="/auth/login" style="text-decoration: none; display: inline-flex; align-items: center;">Se connecter</a>
       <button class="nav-burger" (click)="toggleMobile()" [class.active]="mobileOpen()" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
