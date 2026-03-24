@@ -12,8 +12,8 @@ RUN apt-get update && apt-get install -y gcc && \
 # Copier le reste du projet (l'API)
 COPY . .
 
-# Exposer le port par défaut 8000
-EXPOSE 8000
+# Exposer le port par défaut 7860 pour Hugging Face Spaces
+EXPOSE 7860
 
-# Lancer FastAPI avec Uvicorn
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+# Lancer FastAPI avec Uvicorn sur le port 7860
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "7860"]
